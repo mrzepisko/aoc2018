@@ -45,8 +45,9 @@ namespace AdventOfCode2018 {
             Console.WriteLine(day.Name);
             day.ParseInput();
             Console.ReadKey();
-            day.PartOne();
-            day.PartTwo();
+            Console.WriteLine("Part one: {0}", day.PartOne());
+            Console.ReadKey();
+            Console.WriteLine("Part two: {0}", day.PartTwo());
             Console.ReadLine();
             return 0;
         }
