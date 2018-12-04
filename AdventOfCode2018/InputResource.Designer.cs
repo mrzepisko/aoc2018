@@ -61,6 +61,33 @@ namespace AdventOfCode2018 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to bqlpzruexkszyahnamgjdctvfs
+        ///bqlporuexkwyyahnbmgjdctvfb
+        ///bqlhoruexkwzyahefmgjdctvfs
+        ///bqlporuegkwzyahdimgodctvfs
+        ///bqlporuxxkwhybhnimgjdctvfs
+        ///dqlporuexkwzyahnimgjfcivfs
+        ///bqlporlexkwzyarniigjdctvfs
+        ///bqlporuezkqzeahnimgjdctvfs
+        ///bqlporuefkwzyamnsmgjdctvfs
+        ///bqlporuexkwzyahqimgjdazvfs
+        ///bqspocuexkwzyahnimgjdctffs
+        ///bqlporuexkwzywhnimgjiccvfs
+        ///bqlcoruexkwzyahnimgjdgtvfj
+        ///bqljoruexkwvyahnimgcdctvfs
+        ///bqeporuexkwzyahnionjdctvfs
+        ///bqlporuexkwzyabnxmgjqctvfs
+        ///bqjporuexkwzyahnimtddctvfs
+        ///bqlprruexkezyahbimgjdctvfs
+        ///bqlporue [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DAY02 {
+            get {
+                return ResourceManager.GetString("DAY02", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to +11
         ///+16
         ///+2
