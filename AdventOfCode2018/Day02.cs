@@ -25,7 +25,25 @@ namespace AdventOfCode2018 {
         }
 
         public override string PartTwo() {
-            return "n/a";
+            int distance = int.MaxValue;
+            int pick0 = -1, pick1 = -1;
+            for (int id0 = 0; id0 < data.Length; id0++) {
+                for (int id1 = id0 + 1; id1 < data.Length; id1++) {
+                    int currDistance = Utils.LevenshteinDistance(data[id0], data[id1]);
+                    if (currDistance < distance) {
+                        pick0 = id0; pick1 = id1;
+                        distance = currDistance;
+                    }
+                }
+            }
+            string s0 = data[pick0], s1 = data[pick1];
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < s0.Length; i++) {
+                if (s0[i] == s1[i]) {
+                    result.Append(s0[i]);
+                }
+            }
+            return result.ToString();
         }
 
         Duplicates CheckDuplicates(string input) {
