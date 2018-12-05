@@ -120,6 +120,29 @@ namespace AdventOfCode2018 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [1518-11-22 00:00] Guard #1231 begins shift
+        ///[1518-04-13 00:00] falls asleep
+        ///[1518-09-09 00:02] falls asleep
+        ///[1518-04-06 00:58] wakes up
+        ///[1518-04-28 00:19] falls asleep
+        ///[1518-03-25 00:52] wakes up
+        ///[1518-04-12 00:56] falls asleep
+        ///[1518-10-25 00:09] falls asleep
+        ///[1518-09-07 00:00] Guard #2383 begins shift
+        ///[1518-08-20 00:17] falls asleep
+        ///[1518-05-09 00:58] wakes up
+        ///[1518-05-16 00:16] falls asleep
+        ///[1518-08-25 23:57] Guard #3499 begins shift
+        ///[1518-10-09 00:51] falls asleep
+        ///[1518-10-04 00:53] wakes u [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DAY04 {
+            get {
+                return ResourceManager.GetString("DAY04", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to +11
         ///+16
         ///+2
