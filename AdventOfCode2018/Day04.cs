@@ -14,10 +14,10 @@ namespace AdventOfCode2018 {
         public override string Input => InputResource.DAY04;
         List<TimedEvent> events = new List<TimedEvent>();
         Dictionary<int, Guard> guards = new Dictionary<int, Guard>();
-        public override void ParseInput() {
+        public override void ParseInput(string input) {
             int lastGuard = -1;
             RegexOptions options = RegexOptions.Multiline;
-            foreach (Match m in Regex.Matches(Input, regex, options)) {
+            foreach (Match m in Regex.Matches(input, regex, options)) {
                 DateTime time = DateTime.Parse(m.Groups["t"].Value);
                 int guardId = m.Groups["b"].Success ? int.Parse(m.Groups["b"].Value) : lastGuard;
                 TimedEvent.Type type = !m.Groups["b"].Success ? (m.Groups["w"].Success ? TimedEvent.Type.WakeUp : TimedEvent.Type.FallAsleep) : TimedEvent.Type.BeginShift;

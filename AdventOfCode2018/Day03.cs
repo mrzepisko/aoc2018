@@ -17,9 +17,9 @@ namespace AdventOfCode2018 {
         int[,] grid;
         
 
-        public override void ParseInput() {
+        public override void ParseInput(string input) {
             RegexOptions options = RegexOptions.Multiline;
-            data = Regex.Matches(Input, regex, options).Cast<Match>().Select(m => new Rect() {
+            data = Regex.Matches(input, regex, options).Cast<Match>().Select(m => new Rect() {
                 id = int.Parse(m.Groups["id"].Value),
                 x = int.Parse(m.Groups["x"].Value),
                 y = int.Parse(m.Groups["y"].Value),

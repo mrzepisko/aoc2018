@@ -43,7 +43,22 @@ namespace AdventOfCode2018 {
             WriteConsoleHeader();
             Console.Write("\n\n");
             Console.WriteLine(day.Name);
-            day.ParseInput();
+            Console.Write("Input data: (default none): ");
+            //test data
+            string data = Console.ReadLine();
+            if (data.Length > 0) {
+                return DayLoopTest(day, data);
+            }
+
+            day.Init();
+            Console.WriteLine("Part one: {0}", day.PartOne());
+            Console.WriteLine("Part two: {0}", day.PartTwo());
+            Console.ReadLine();
+            return 0;
+        }
+
+        static int DayLoopTest(Day day, string input) {
+            day.ParseInput(input);
             Console.WriteLine("Part one: {0}", day.PartOne());
             Console.WriteLine("Part two: {0}", day.PartTwo());
             Console.ReadLine();
@@ -59,8 +74,13 @@ namespace AdventOfCode2018 {
     abstract class Day {
         public abstract string Name { get; }
         public abstract string Input { get;}
-        public abstract void ParseInput();
+
+        public abstract void ParseInput(string input);
         public abstract string PartOne();
         public abstract string PartTwo();
+
+        public void Init() {
+            ParseInput(Input);
+        }
     }
 }

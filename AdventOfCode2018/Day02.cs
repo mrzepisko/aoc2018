@@ -12,8 +12,8 @@ namespace AdventOfCode2018 {
 
         string[] data;
 
-        public override void ParseInput() {
-            data = Input.Split('\n');
+        public override void ParseInput(string input) {
+            data = input.Split('\n');
         }
 
         public override string PartOne() {
