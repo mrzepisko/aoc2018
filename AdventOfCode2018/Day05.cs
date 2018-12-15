@@ -16,24 +16,40 @@ namespace AdventOfCode2018 {
         }
 
         string input;
+        Result result;
 
         public override string PartOne() {
             string result = input, newResult = input;
+            this.result = Reduce(result);
+            return string.Format("Steps: {0}, total length: => {1} <=", this.result.steps, this.result.Length);
+        }
+
+        private Result Reduce(string input) {
             int steps = 0;
+            string result = input;
             while (Step(result, out result)) {
                 steps++;
             }
-            return string.Format("Results ready, calculated in {0} steps, total length: => {1} <=", steps, result.Length);
+            return new Result() { output = result, steps = steps, };
         }
 
-
         public override string PartTwo() {
-            return "n/a";
+            string input = result.output;
+            char[] unique = result.output.ToLower().Distinct().ToArray();
+            int[] results = new int[unique.Length];
+            var x = Parallel.For(0, unique.Length, i => {
+                char c = unique[i];
+                string newInput = input.Replace(c.ToString(), string.Empty).Replace(((char)((int)c - caseDiff)).ToString(), string.Empty);
+                Result r = Reduce(newInput);
+                results[i] = r.Length;
+            });
+            while (!x.IsCompleted) {}
+            int shortestId = Array.IndexOf(results, results.Min());
+            return string.Format("Unique units: {0}, shortest length: {1} for unit {2}", unique.Length, results[shortestId], unique[shortestId]);
         }
 
         bool Step(string input, out string output) {
             StringBuilder sb = new StringBuilder();
-            bool reduced = false;
             for (int i = 0; i < input.Length; i++) {
                 if (Compare(i, i + 1, ref input)) {
                     sb.Append(input.Substring(i + 2));
@@ -68,6 +84,13 @@ namespace AdventOfCode2018 {
 
         T Min<T>(T t0, T t1) where T : IComparable {
             return t0.CompareTo(t1) < 0 ? t0 : t1;
+        }
+
+        struct Result {
+            public int steps;
+            public string output;
+
+            public int Length => output.Length;
         }
     }
 }
