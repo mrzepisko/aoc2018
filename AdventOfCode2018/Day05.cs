@@ -18,92 +18,38 @@ namespace AdventOfCode2018 {
         string input;
 
         public override string PartOne() {
-            int[] reactions = new int[input.Length];
-
-            ProcessParams processParams = ProcessParams.Create(0, 1, true);
-            int it = 0;
-            do {
-                do {
-                    it++;
-                    processParams = ProcessReactions(processParams.idxC0, processParams.idxC1, input, ref reactions);
-                } while (processParams.doContinue);
-
-            } while (reactions.Select(i => i == 0).Count() > 10);
-            return CollectReaction(ref reactions);
-        }
-
-        private string CollectReaction(ref int[] reactions) {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < reactions.Length; i++) {
-                if (reactions[i] == 0) {
-                    sb.Append(input[i]);
-                }
+            string result = input, newResult = input;
+            int steps = 0;
+            while (Step(result, out result)) {
+                steps++;
             }
-            return sb.ToString();
+            return string.Format("Results ready, calculated in {0} steps, total length: => {1} <=", steps, result.Length);
         }
+
 
         public override string PartTwo() {
             return "n/a";
         }
 
-        ProcessParams ProcessReactions(int idxC0, int idxC1, string input, ref int[] reactions) {
-            if (idxC1 < 0 || idxC1 >= input.Length) return ProcessParams.Create(0, 0, false); //end;
-            bool compare = Compare(input[idxC0], input[idxC1]);
-            if (compare) reactions[idxC0] = reactions[idxC1] = 1;
-
-            idxC0 = NewC0(idxC0, compare, ref reactions);
-            if (idxC0 < 0) return ProcessParams.Create(0, 0, false); //end
-            idxC1 = NewC1(idxC0, ref reactions);
-            if (idxC0 < 0) return ProcessParams.Create(0, 0, false); //end
-
-            return ProcessParams.Create(idxC0, idxC1, true);
-        }
-
-        int Prev(int idxC0, ref int[] reactions, int dir = -1) {
-            if (idxC0 + dir < 0) dir = 1;
-            if (idxC0 + dir >= reactions.Length) return 0;
-            if (reactions[idxC0 + dir] == 0) return dir;
-            return Prev(idxC0 + dir + Math.Sign(dir), ref reactions, dir);
-        }
-
-        int NewC0(int idxC0, bool compare, ref int[] reactions) {
-            if (compare) {
-                int before = FindFirstBefore(idxC0 - 1, ref reactions);
-                if (before >= 0) {
-                    return before;
+        bool Step(string input, out string output) {
+            StringBuilder sb = new StringBuilder();
+            bool reduced = false;
+            for (int i = 0; i < input.Length; i++) {
+                if (Compare(i, i + 1, ref input)) {
+                    sb.Append(input.Substring(i + 2));
+                    output = sb.ToString();
+                    return true;
                 }
+                sb.Append(input[i]);
             }
-            int after = FindFirstAfter(idxC0 + 1, ref reactions);
-            if (after > 0 || after < reactions.Length) {
-                return after;
-            }
-            return -1;
+            output = sb.ToString();
+            return false;
         }
 
-        int NewC1(int idxC0, ref int[] reactions) {
-            return FindFirstAfter(idxC0 + 1, ref reactions);
+        bool Compare(int idxC0, int idxC1, ref string input) {
+            if (idxC0 < 0 || idxC1 < 0 || idxC0 >= input.Length || idxC1 >= input.Length) return false;
+            else return Compare(input[idxC0], input[idxC1]);
         }
-
-        int FindFirstBefore(int idx, ref int[] array) {
-            if (idx < 0) return -1;
-            if (array[idx] == 0) return idx;
-            return FindFirstBefore(idx - 1, ref array);
-        }
-
-        int FindFirstAfter(int idx, ref int[] array) {
-            if (idx >= array.Length) return -1;
-            if (array[idx] == 0) return idx;
-            return FindFirstAfter(idx + 1, ref array);
-        }
-
-        int DeltaC0(bool compareResult, int idxC0, ref int[] reactions) {
-            return !compareResult ? 1 : Prev(idxC0, ref reactions);
-        }
-
-        int DeltaC1(bool compareResult, int DeltaC0) {
-            return !compareResult ? 1 : (DeltaC0 > 0 ? 2 : 1);
-        }
-
         bool Compare(char c0, char c1) {
             return EqLow(c0, c1) && !Eq(c0, c1);
         }
@@ -122,15 +68,6 @@ namespace AdventOfCode2018 {
 
         T Min<T>(T t0, T t1) where T : IComparable {
             return t0.CompareTo(t1) < 0 ? t0 : t1;
-        }
-
-        struct ProcessParams {
-            public int idxC0, idxC1, iteration;
-            public bool doContinue;
-
-            public static ProcessParams Create(int idxC0, int idxC1, bool doContinue) {
-                return new ProcessParams() { idxC0 = idxC0, idxC1 = idxC1, doContinue = doContinue, iteration = 0, };
-            }
         }
     }
 }
