@@ -83,7 +83,7 @@ namespace AdventOfCode2018 {
         }
 
         public override string PartTwo() {
-            throw new NotImplementedException();
+            return string.Format("{0}", root.NodeValue());
         }
 
         IEnumerator<int> DataEnumerator() {
@@ -113,6 +113,21 @@ namespace AdventOfCode2018 {
                 foreach (Node child in children) {
                     result += child.SumMeta();
                 }
+                return result;
+            }
+
+            public int NodeValue() {
+                int result = 0;
+                if (children.Count == 0) {
+                    result += meta.Sum();
+                } else {
+                    foreach (int reference in meta) {
+                        if (reference > 0 && reference <= childCount) {
+                            result += children[reference - 1].NodeValue();
+                        }
+                    }
+                }
+
                 return result;
             }
         }
