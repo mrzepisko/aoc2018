@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AdventOfCode2018 {
     class Day08 : Day {
+        const int STACK_SAFE_SIZE = int.MaxValue / 2;
         const string PATTERN = @"(\d+)";
 
         public override string Name => "--- Day 8: Memory Maneuver ---";
@@ -17,7 +19,10 @@ namespace AdventOfCode2018 {
         int[] data;
         Node root;
 
-        
+        int calls;
+        Thread evaluationThread;
+
+
 
         public override void ParseInput(string input) {
             var matchCollection = Regex.Matches(input, PATTERN);
@@ -26,34 +31,54 @@ namespace AdventOfCode2018 {
                 data[i] = int.Parse(matchCollection[i].Groups[1].Value);
             }
 
-
-            IEnumerator<int> enumerator = DataEnumerator();
-            enumerator.MoveNext();
-            root = EvaluateChild(ref enumerator);
+            evaluationThread = new Thread(StartEvaluation, STACK_SAFE_SIZE);
+            evaluationThread.Start();
         }
 
-        private Node EvaluateChild(ref IEnumerator<int> enumerator) {
+        private void StartEvaluation() {
+            IEnumerator<int> enumerator = DataEnumerator();
+            calls = 0;
+            try {
+                root = EvaluateChildRecursive(ref enumerator);
+            } catch (StackOverflowException ex) {
+                Console.WriteLine("Thread interrupted at {0} calls", calls);
+                throw ex;
+            }
+        }
+
+        private Node EvaluateChildRecursive(ref IEnumerator<int> enumerator) {
+            //Console.WriteLine("{0}", calls++);
+            if (!enumerator.MoveNext()) {
+                return null;
+            }
             Node node = new Node();
             node.childCount = enumerator.Current;
             enumerator.MoveNext();
             node.metaCount = enumerator.Current;
+
+            //child nodes
             if (node.childCount > 0) {
                 for (int i = 0; i < node.childCount; i++) {
-                    enumerator.MoveNext();
-                    var child = EvaluateChild(ref enumerator);
-                    node.children.Add(child);
-                }
-            } else {
-                node.meta = new int[node.metaCount];
-                for (int i = node.metaCount; i > 0; i--) {
-                    enumerator.MoveNext();
-                    node.meta[node.metaCount - i] = enumerator.Current;
+                    var child = EvaluateChildRecursive(ref enumerator);
+                    if (child != null) {
+                        node.children.Add(child);
+                    }
                 }
             }
+            //meta
+            node.meta = new int[node.metaCount];
+            for (int i = node.metaCount; i > 0; i--) {
+                enumerator.MoveNext();
+                node.meta[node.metaCount - i] = enumerator.Current;
+            }
+            
             return node;
         }
 
         public override string PartOne() {
+            while (evaluationThread != null && evaluationThread.IsAlive) {
+                Thread.Sleep(100);
+            }
             return string.Format("{0}", root.SumMeta());
         }
 
