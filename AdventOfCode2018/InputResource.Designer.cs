@@ -170,9 +170,21 @@ namespace AdventOfCode2018 {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to 9 11 6 2 5 3 3 5 1 5 0 10 8 3 4 1 4 1 8 8 4 8 3 1 3 3 1 1 7 0 6 5 1 9 4 1 6 1 3 2 3 1 2 2 1 7 0 10 8 7 3 2 5 6 1 3 6 1 2 3 2 3 1 1 3 2 2 5 2 5 3 6 1 7 0 7 6 4 1 7 7 6 7 2 2 1 3 1 1 1 1 9 0 10 6 2 1 9 1 8 1 1 2 5 1 3 1 1 1 1 2 3 3 1 9 0 7 6 1 8 6 3 7 5 3 3 3 1 2 2 2 1 1 5 1 3 5 1 1 3 7 1 6 0 11 4 4 5 3 7 1 7 8 8 8 8 3 1 1 3 2 3 1 9 0 6 5 1 1 9 3 5 2 3 3 1 3 2 3 2 2 1 7 0 10 4 9 5 4 9 7 8 1 8 8 1 1 1 1 1 2 1 1 4 4 4 5 2 2 3 4 1 6 0 11 9 4 1 3 4 1 3 8 9 2 8 2 3 1 2 2 2 1 6 0 9 9 8 5 1 8 1 9 1 6 1 1 1 1 1 1 1 7 [rest of string was truncated]&quot;;.
+        /// </summary>
         internal static string DAY08 {
             get {
                 return ResourceManager.GetString("DAY08", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 465 players; last marble is worth 71940 points.
+        /// </summary>
+        internal static string DAY09 {
+            get {
+                return ResourceManager.GetString("DAY09", resourceCulture);
             }
         }
         
