@@ -310,6 +310,26 @@ namespace AdventOfCode2018 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to position=&lt;-50429,  40580&gt; velocity=&lt; 5, -4&gt;
+        ///position=&lt; 30528, -40359&gt; velocity=&lt;-3,  4&gt;
+        ///position=&lt; 20386, -40351&gt; velocity=&lt;-2,  4&gt;
+        ///position=&lt; -9924,  30462&gt; velocity=&lt; 1, -3&gt;
+        ///position=&lt;-30203, -50470&gt; velocity=&lt; 3,  5&gt;
+        ///position=&lt; 50746, -40351&gt; velocity=&lt;-5,  4&gt;
+        ///position=&lt; 50778, -20120&gt; velocity=&lt;-5,  2&gt;
+        ///position=&lt;-20046,  10229&gt; velocity=&lt; 2, -1&gt;
+        ///position=&lt; 40645,  30467&gt; velocity=&lt;-4, -3&gt;
+        ///position=&lt;-50419, -10005&gt; velocity=&lt; 5,  1&gt;
+        ///position=&lt;-20089,  -9999&gt; velocity=&lt; 2,  1&gt;
+        ///position=&lt;-50386, [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DAY10 {
+            get {
+                return ResourceManager.GetString("DAY10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ** Advent of Code 2018 **
         ///** @mrzepisko
         ///

@@ -52,6 +52,7 @@
     <Compile Include="Day08.cs" />
     <Compile Include="Day09.cs" />
     <Compile Include="Day1.cs" />
+    <Compile Include="Day10.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="InputResource.Designer.cs">
       <AutoGen>True</AutoGen>
