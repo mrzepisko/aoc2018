@@ -1,0 +1,12 @@
+﻿#pragma kernel ComputeSignal
+
+int frame;
+StructuredBuffer<int4> input;
+RWStructuredBuffer<int2> output;
+
+[numthreads(8,8,1)]
+void ComputeSignal(uint3 id : SV_DispatchThreadID)
+{
+	output[id.x].x = input[id.x].x + frame * input[id.x].z;
+	output[id.x].y = -input[id.x].y - frame * input[id.x].w;
+}
